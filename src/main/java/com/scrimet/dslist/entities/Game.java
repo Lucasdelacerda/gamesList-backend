@@ -9,7 +9,7 @@ import lombok.*;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="tb_games")
+@Table(name="tb_game")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Game {
@@ -26,6 +26,8 @@ public class Game {
     private String platforms;
     private Double score;
     private String imgUrl;
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
 }
