@@ -9,11 +9,12 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode
-@Table(name = "tb_beloging")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "tb_belonging")
 public class Belonging {
 
     @EmbeddedId
+    @EqualsAndHashCode.Include
     private BelongingPK id = new BelongingPK();
 
     private Integer position;

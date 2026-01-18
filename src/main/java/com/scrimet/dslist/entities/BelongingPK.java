@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Embeddable
 public class BelongingPK {
 
@@ -19,5 +18,6 @@ public class BelongingPK {
     @ManyToOne
     @JoinColumn(name = "list_id")
     private GameList list;
+
 
 }
