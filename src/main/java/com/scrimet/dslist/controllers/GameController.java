@@ -1,7 +1,6 @@
 package com.scrimet.dslist.controllers;
 
 import com.scrimet.dslist.dto.GameMinDTO;
-import com.scrimet.dslist.entities.Game;
 import com.scrimet.dslist.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

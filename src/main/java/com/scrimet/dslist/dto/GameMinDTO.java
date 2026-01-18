@@ -2,7 +2,6 @@ package com.scrimet.dslist.dto;
 
 
 import com.scrimet.dslist.entities.Game;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
