@@ -19,5 +19,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 			""")
 	List<GameMinProjection> searchByList(Long listId);
 
+	@Query(nativeQuery = true, value = "SELECT * FROM tb_game WHERE LOWER(title) LIKE LOWER(CONCAT('%', :title, '%'))")
+	List<Game> searchByTitle(String title);
 
 }

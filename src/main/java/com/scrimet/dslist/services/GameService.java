@@ -3,6 +3,7 @@ package com.scrimet.dslist.services;
 import com.scrimet.dslist.dto.GameDTO;
 import com.scrimet.dslist.dto.GameMinDTO;
 import com.scrimet.dslist.entities.Game;
+import com.scrimet.dslist.exceptions.GameNotFoundException;
 import com.scrimet.dslist.projections.GameMinProjection;
 import com.scrimet.dslist.repositories.GameRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +19,21 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public GameDTO findById(Long id){
-        Game result = gameRepository.findById(id).get();
+        Game result = gameRepository.findById(id)
+                .orElseThrow(() -> new GameNotFoundException(id));;
         return new GameDTO(result);
 
     }
     @Transactional(readOnly = true)
+    public List<GameMinDTO> searchByTitle(String title) {
+        List<Game> result = gameRepository.searchByTitle(title);
+
+        return result.stream().map(x -> new GameMinDTO(x)).toList();
+    }
+    @Transactional(readOnly = true)
     public List<GameMinDTO> findAll(){
         List<Game> result = gameRepository.findAll();
+
         return result.stream().map(x -> new GameMinDTO(x)).toList();
 
     }

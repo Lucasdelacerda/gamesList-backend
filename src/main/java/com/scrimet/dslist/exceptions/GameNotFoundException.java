@@ -4,5 +4,7 @@ public class GameNotFoundException extends ResourceNotFoundException{
     public GameNotFoundException(Long id){
         super("Jogo não encontrado " + id);
     }
+    public GameNotFoundException(String title){
+        super("Jogo " + title + " não encontrado ");
+    }
 }
-//colocar uma mensagem com o nome do jogo e procura do jogo
