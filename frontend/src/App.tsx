@@ -37,7 +37,7 @@ function App() {
   },[])
   return (
     <div>
-      <div className="search-bar">
+      <div className="search-container">
       <input className='searchBar' type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Nome do jogo" />
       <button onClick={handleSearch}>Pesquisar</button>
       </div>
