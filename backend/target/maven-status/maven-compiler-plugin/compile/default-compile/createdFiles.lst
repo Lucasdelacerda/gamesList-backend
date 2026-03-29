@@ -13,10 +13,10 @@ com/scrimet/dslist/services/GameListService.class
 com/scrimet/dslist/dto/ErrorResponseDTO.class
 com/scrimet/dslist/exceptions/GameNotFoundException.class
 com/scrimet/dslist/controllers/GlobalExceptionHandler.class
+com/scrimet/dslist/dto/UsersDTO.class
 com/scrimet/dslist/controllers/GameListController.class
 com/scrimet/dslist/services/UsersService.class
 com/scrimet/dslist/dto/GameMinDTO.class
-com/scrimet/dslist/dto/UsersPanelDTO.class
 com/scrimet/dslist/repositories/GameListRepository.class
 com/scrimet/dslist/services/GameService.class
 com/scrimet/dslist/entities/Belonging.class
@@ -24,3 +24,4 @@ com/scrimet/dslist/dto/GameListDTO.class
 com/scrimet/dslist/projections/GameMinProjection.class
 com/scrimet/dslist/exceptions/ResourceNotFoundException.class
 com/scrimet/dslist/entities/Game$GameBuilder.class
+com/scrimet/dslist/config/CorsConfig.class

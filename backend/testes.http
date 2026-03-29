@@ -1,4 +1,8 @@
-POST https://organic-space-eureka-qjq9rgpw9rx3xpx7-8080.app.github.dev/users
+### Variáveis
+@baseUrl = http://localhost:8080
+
+### Inserir novo usuário
+POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
@@ -6,3 +10,28 @@ Content-Type: application/json
   "email": "john.doe@example.com",
   "password": "password123"
 }
+
+### Inserir segundo usuário
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "password": "securepass456"
+}
+
+### Buscar usuário por email
+GET {{baseUrl}}/users/email?email=john.doe@example.com
+
+### Listar todos os jogos
+GET {{baseUrl}}/games
+
+### Listar listas de jogos
+GET {{baseUrl}}/lists
+
+### Buscar jogo por ID
+GET {{baseUrl}}/games/id?id=1
+
+### Buscar jogo por título
+GET {{baseUrl}}/games/title?title=Mass

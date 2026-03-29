@@ -1,4 +1,5 @@
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/DslistApplication.java
+/workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/config/CorsConfig.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/controllers/GameController.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/controllers/GameListController.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/controllers/GlobalExceptionHandler.java
@@ -7,7 +8,7 @@
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/dto/GameDTO.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/dto/GameListDTO.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/dto/GameMinDTO.java
-/workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/dto/UsersPanelDTO.java
+/workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/dto/UsersDTO.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/entities/Belonging.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/entities/BelongingPK.java
 /workspaces/gamesList-backend/backend/src/main/java/com/scrimet/dslist/entities/Game.java
