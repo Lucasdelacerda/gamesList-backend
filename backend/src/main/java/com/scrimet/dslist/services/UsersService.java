@@ -1,8 +1,10 @@
 package com.scrimet.dslist.services;
 
-import com.scrimet.dslist.dto.UsersPanelDTO;
+import com.scrimet.dslist.dto.UsersDTO;
 import com.scrimet.dslist.entities.Users;
 import com.scrimet.dslist.repositories.UsersRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +14,21 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 public class UsersService {
+    @Autowired
     private UsersRepository usersRepository;
 
     @Transactional(readOnly = true)
-    public List<UsersPanelDTO> searchByEmail(String email) {
+    public List<UsersDTO> searchByEmail(String email) {
     List<Users> result = usersRepository.searchByEmail(email);
 
-    return result.stream().map(x -> new UsersPanelDTO(x)).toList();
+    return result.stream().map(x -> new UsersDTO(x)).toList();
     }
+    @Transactional
+    public UsersDTO insert(UsersDTO dto){
+        Users entity = new Users();
+        entity.setName(dto.getName());
+        entity.setEmail(dto.getEmail());
+        entity.setPassword(dto.getPassword());
+        entity = usersRepository.save(entity);
+        return new UsersDTO(entity);}
 }

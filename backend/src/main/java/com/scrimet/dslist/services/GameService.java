@@ -44,4 +44,19 @@ public class GameService {
 
     }
 
+    @Transactional
+    public GameDTO insert(GameDTO dto){
+        Game entity = new Game();
+        entity.setTitle(dto.getTitle());
+        entity.setYear(dto.getYear());
+        entity.setGenre(dto.getGenre());
+        entity.setPlatforms(dto.getPlatforms());
+        entity.setScore(dto.getScore());
+        entity.setImgUrl(dto.getImgUrl());
+        entity.setShortDescription(dto.getShortDescription());
+        entity.setLongDescription(dto.getLongDescription());
+        entity = gameRepository.save(entity);
+        return new GameDTO(entity);
+    }   
+
 }

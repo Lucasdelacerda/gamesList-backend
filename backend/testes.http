@@ -1,0 +1,8 @@
+POST https://organic-space-eureka-qjq9rgpw9rx3xpx7-8080.app.github.dev/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "password123"
+}

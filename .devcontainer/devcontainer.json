@@ -1,0 +1,26 @@
+{
+  "name": "Java Spring Boot Environment",
+  "image": "mcr.microsoft.com/devcontainers/java:17-bullseye",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-boot-dashboard",
+        "vscjava.vscode-spring-initializr",
+        "vmware.vscode-spring-boot",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-maven",
+        "redhat.vscode-xml",
+        "eamodio.gitlens",
+        "vscjava.vscode-lombok"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+  "forwardPorts": [8080],
+  "postCreateCommand": "mvn clean install"
+}

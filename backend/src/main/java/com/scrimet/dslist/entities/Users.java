@@ -17,6 +17,8 @@ public class Users {
     @EqualsAndHashCode.Include
     public String id;
     public String name;
+    @Column(unique = true)
     public String email;
+    @Column(nullable = false)
     public String password;
 }

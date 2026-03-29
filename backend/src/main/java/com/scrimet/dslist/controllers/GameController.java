@@ -8,11 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping(value = "/games")
-public class GameController {
+public class GameController { 
 
     @Autowired
     private GameService gameService;
@@ -32,4 +35,11 @@ public class GameController {
         return gameService.findAll();
 
     }
+
+    @PostMapping("/games")
+    public GameDTO insert(@RequestBody GameDTO dto){
+        dto = gameService.insert(dto);
+        return dto;
+    }
+    
 }
