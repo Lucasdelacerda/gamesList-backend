@@ -10,12 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UsersDTO {
-    public String name;
+    public String userName;
     public String email;
     public String password;
 
     public UsersDTO(Users entity) {
-        name = entity.getName();
+        userName = entity.getUserName();
         email = entity.getEmail();
         password = entity.getPassword();
     }

@@ -15,6 +15,7 @@ com/scrimet/dslist/exceptions/GameNotFoundException.class
 com/scrimet/dslist/controllers/GlobalExceptionHandler.class
 com/scrimet/dslist/dto/UsersDTO.class
 com/scrimet/dslist/controllers/GameListController.class
+com/scrimet/dslist/entities/Users$UsersBuilder.class
 com/scrimet/dslist/services/UsersService.class
 com/scrimet/dslist/dto/GameMinDTO.class
 com/scrimet/dslist/repositories/GameListRepository.class

@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class UsersService {
     @Autowired
@@ -26,7 +24,7 @@ public class UsersService {
     @Transactional
     public UsersDTO insert(UsersDTO dto){
         Users entity = new Users();
-        entity.setName(dto.getName());
+        entity.setUserName(dto.getUserName());
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity = usersRepository.save(entity);
