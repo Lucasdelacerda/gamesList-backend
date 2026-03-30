@@ -12,7 +12,7 @@ import lombok.*;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @EqualsAndHashCode.Include
