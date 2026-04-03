@@ -35,3 +35,44 @@ GET {{baseUrl}}/games/id?id=1
 
 ### Buscar jogo por título
 GET {{baseUrl}}/games/title?title=Mass
+
+### Fazer login e obter token
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### Obter dados do usuário autenticado
+GET {{baseUrl}}/users/me
+Authorization: Bearer seu_token_aqui
+
+### Atualizar apenas password do usuário
+PATCH {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "password": "newpassword789"
+}
+
+### Deletar usuário por ID
+DELETE {{baseUrl}}/users/1
+
+### Atualizar todas as informações do jogo
+PATCH {{baseUrl}}/games/1
+Content-Type: application/json
+
+{
+  "title": "The Witcher 3: Wild Hunt",
+  "imgUrl": "https://raw.githubusercontent.com/devsuperior/java-sds1-assets/main/ds-catalog/img3-big.jpg",
+  "score": 9.2,
+  "year": 2015,
+  "genre": "Role-Playing Game",
+  "platforms": "PC, PlayStation 4, Xbox One",
+  "description": "As a witcher, you must track down contract murders and slain beasts for profit."
+}
+
+### Deletar jogo por ID
+DELETE {{baseUrl}}/games/1

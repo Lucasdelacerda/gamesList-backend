@@ -2,6 +2,7 @@ com/scrimet/dslist/dto/GameDTO.class
 com/scrimet/dslist/DslistApplication.class
 com/scrimet/dslist/dto/LoginResponseDTO.class
 com/scrimet/dslist/entities/BelongingPK.class
+com/scrimet/dslist/services/CustomUserDetailsService.class
 com/scrimet/dslist/dto/UserDTO.class
 com/scrimet/dslist/entities/GameList.class
 com/scrimet/dslist/entities/Game.class
@@ -23,9 +24,11 @@ com/scrimet/dslist/services/GameService.class
 com/scrimet/dslist/entities/Belonging.class
 com/scrimet/dslist/projections/UserPanelProjection.class
 com/scrimet/dslist/dto/GameListDTO.class
+com/scrimet/dslist/config/SecurityConfig.class
 com/scrimet/dslist/projections/GameMinProjection.class
 com/scrimet/dslist/exceptions/ResourceNotFoundException.class
 com/scrimet/dslist/utils/TokenProvider.class
+com/scrimet/dslist/config/JwtAuthenticationFilter.class
 com/scrimet/dslist/entities/User$UserBuilder.class
 com/scrimet/dslist/entities/Game$GameBuilder.class
 com/scrimet/dslist/config/CorsConfig.class

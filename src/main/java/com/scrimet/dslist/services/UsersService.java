@@ -7,17 +7,21 @@ import com.scrimet.dslist.repositories.UserRepository;
 import com.scrimet.dslist.exceptions.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 public class UsersService {
     @Autowired
     private UserRepository usersRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<UserDTO> searchByEmail(String email) {
@@ -42,8 +46,8 @@ public class UsersService {
     public User validateLogin(LoginRequestDTO dto) {
         User user = findByEmail(dto.getEmail());
         
-        // Validar senha (em produção, use encoder como BCryptPasswordEncoder)
-        if (!user.getPassword().equals(dto.getPassword())) {
+        // Validar senha usando BCrypt
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new ResourceNotFoundException("Email ou senha incorretos");
         }
         
@@ -55,7 +59,7 @@ public class UsersService {
         User entity = new User();
         entity.setUserName(dto.getUserName());
         entity.setEmail(dto.getEmail());
-        entity.setPassword(dto.getPassword());
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = usersRepository.save(entity);
         return new UserDTO(entity);
     }

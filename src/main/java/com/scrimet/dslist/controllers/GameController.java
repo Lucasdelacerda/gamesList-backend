@@ -4,12 +4,10 @@ import com.scrimet.dslist.dto.GameDTO;
 import com.scrimet.dslist.dto.GameMinDTO;
 import com.scrimet.dslist.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -19,11 +17,15 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
-    @GetMapping(value = "/id")
-    public GameDTO findById(@RequestParam Long id){
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{id}")
+    public GameDTO findById(@PathVariable Long id){
       GameDTO result= gameService.findById(id);
       return result;
     }
+
+    @PreAuthorize("isAuthenticated()")
     @Transactional(readOnly = true)
     @GetMapping(value = "/title")
     public List<GameMinDTO> findByTitle(@RequestParam String title) {
@@ -36,7 +38,8 @@ public class GameController {
 
     }
 
-    @PostMapping("/games")
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping
     public GameDTO insert(@RequestBody GameDTO dto){
         dto = gameService.insert(dto);
         return dto;

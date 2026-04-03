@@ -9,6 +9,7 @@ import com.scrimet.dslist.services.UsersService;
 import com.scrimet.dslist.utils.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class UserController {
     @Autowired
     private UsersService usersService;
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional(readOnly = true)
     @GetMapping(value = "/email")
     public List<UserDTO> searchByEmail(@RequestParam String email){
@@ -41,6 +43,7 @@ public class UserController {
         return new LoginResponseDTO(user, token);
     }
     
+    @PreAuthorize("isAuthenticated()")
     @Transactional(readOnly = true)
     @GetMapping("/me")
     public UserDTO getCurrentUser(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
