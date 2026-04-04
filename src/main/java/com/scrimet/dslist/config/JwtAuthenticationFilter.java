@@ -19,9 +19,11 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
+    private final TokenProvider tokenProvider;
 
-    public JwtAuthenticationFilter(UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(UserDetailsService userDetailsService, TokenProvider tokenProvider) {
         this.userDetailsService = userDetailsService;
+        this.tokenProvider = tokenProvider;
     }
 
     @Override
@@ -37,16 +39,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        userId = TokenProvider.validateToken(jwt);
-
-        if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
-            if (userDetails != null) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+        try {
+            userId = tokenProvider.extractUserId(jwt);
+            if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
+                if (userDetails != null && tokenProvider.validateToken(jwt, userId)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        } catch (Exception e) {
+            // Token inválido, continuar sem autenticação
         }
 
         filterChain.doFilter(request, response);

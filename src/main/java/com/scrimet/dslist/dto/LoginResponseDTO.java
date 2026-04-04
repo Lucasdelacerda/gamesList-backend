@@ -14,10 +14,12 @@ public class LoginResponseDTO {
     public String userName;
     public String email;
     public String token;
+    public String refreshToken;
 
-    public LoginResponseDTO(User user, String token) {
+    public LoginResponseDTO(User user, String token, String refreshToken) {
         this.userName = user.getUserName();
         this.email = user.getEmail();
         this.token = token;
+        this.refreshToken = refreshToken;
     }
 }

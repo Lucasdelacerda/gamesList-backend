@@ -2,6 +2,7 @@ package com.scrimet.dslist.services;
 
 import com.scrimet.dslist.dto.UserDTO;
 import com.scrimet.dslist.dto.LoginRequestDTO;
+import com.scrimet.dslist.entities.Role;
 import com.scrimet.dslist.entities.User;
 import com.scrimet.dslist.repositories.UserRepository;
 import com.scrimet.dslist.exceptions.ResourceNotFoundException;
@@ -60,6 +61,7 @@ public class UsersService {
         entity.setUserName(dto.getUserName());
         entity.setEmail(dto.getEmail());
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+        entity.setRole(dto.getRole() != null ? dto.getRole() : Role.USER);
         entity = usersRepository.save(entity);
         return new UserDTO(entity);
     }

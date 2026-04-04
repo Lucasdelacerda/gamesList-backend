@@ -2,14 +2,12 @@ package com.scrimet.dslist.config;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -52,7 +50,10 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**", "/actuator/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/games").permitAll() // findAll sem auth
                 .requestMatchers(HttpMethod.POST, "/users/login").permitAll() // login sem auth
+                .requestMatchers(HttpMethod.POST, "/users/refresh").permitAll() // refresh token sem auth
                 .requestMatchers(HttpMethod.POST, "/users").permitAll() // registro sem auth
+                .requestMatchers(HttpMethod.GET, "/users/me").hasAnyRole("USER", "ADMIN") // endpoint protegido
+                .requestMatchers(HttpMethod.GET, "/users/email").hasRole("ADMIN") // apenas admin
                 .anyRequest().authenticated())
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
