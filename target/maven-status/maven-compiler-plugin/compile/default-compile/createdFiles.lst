@@ -3,12 +3,14 @@ com/scrimet/dslist/DslistApplication.class
 com/scrimet/dslist/dto/LoginResponseDTO.class
 com/scrimet/dslist/entities/BelongingPK.class
 com/scrimet/dslist/services/CustomUserDetailsService.class
+com/scrimet/dslist/dto/RefreshTokenRequestDTO.class
 com/scrimet/dslist/dto/UserDTO.class
 com/scrimet/dslist/entities/GameList.class
 com/scrimet/dslist/entities/Game.class
 com/scrimet/dslist/controllers/UserController.class
 com/scrimet/dslist/dto/LoginRequestDTO.class
 com/scrimet/dslist/controllers/GameController.class
+com/scrimet/dslist/entities/Role.class
 com/scrimet/dslist/repositories/UserRepository.class
 com/scrimet/dslist/repositories/GameRepository.class
 com/scrimet/dslist/services/GameListService.class

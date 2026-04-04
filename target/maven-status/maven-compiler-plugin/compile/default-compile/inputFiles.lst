@@ -11,6 +11,7 @@
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/repositories/GameListRepository.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/projections/GameMinProjection.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/entities/Game.java
+/workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/dto/RefreshTokenRequestDTO.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/exceptions/GameNotFoundException.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/entities/GameList.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/config/SecurityConfig.java
@@ -29,4 +30,5 @@
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/projections/UserPanelProjection.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/controllers/GameController.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/config/CorsConfig.java
+/workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/entities/Role.java
 /workspaces/gamesList-backend/src/main/java/com/scrimet/dslist/entities/User.java

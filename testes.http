@@ -1,53 +1,232 @@
 ### Variáveis
 @baseUrl = http://localhost:8080
 
-### Inserir novo usuário
+### =============================================================================
+### TESTE COMPLETO DA APLICAÇÃO - GAMES LIST BACKEND
+### =============================================================================
+
+### -----------------------------------------------------------------------------
+### 1. REGISTRO DE USUÁRIOS
+### -----------------------------------------------------------------------------
+
+### Registrar usuário comum 1
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "password": "password123"
+  "userName": "João Silva",
+  "email": "joao.silva@example.com",
+  "password": "senha123"
 }
 
-### Inserir segundo usuário
+### Registrar usuário comum 2
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "name": "Jane Smith",
-  "email": "jane.smith@example.com",
-  "password": "securepass456"
+  "userName": "Maria Santos",
+  "email": "maria.santos@example.com",
+  "password": "senha456"
 }
 
-### Buscar usuário por email
-GET {{baseUrl}}/users/email?email=john.doe@example.com
+### Registrar usuário admin (simulado - mesmo nível de permissões)
+POST {{baseUrl}}/users
+Content-Type: application/json
 
-### Listar todos os jogos
-GET {{baseUrl}}/games
+{
+  "userName": "Admin User",
+  "email": "admin@example.com",
+  "password": "admin123"
+}
 
-### Listar listas de jogos
-GET {{baseUrl}}/lists
+### -----------------------------------------------------------------------------
+### 2. LOGIN E OBTENÇÃO DE TOKENS
+### -----------------------------------------------------------------------------
 
-### Buscar jogo por ID
-GET {{baseUrl}}/games/id?id=1
-
-### Buscar jogo por título
-GET {{baseUrl}}/games/title?title=Mass
-
-### Fazer login e obter token
+### Login usuário comum 1 - João Silva
+# @name loginJoao
 POST {{baseUrl}}/users/login
 Content-Type: application/json
 
 {
-  "email": "john.doe@example.com",
-  "password": "password123"
+  "email": "joao.silva@example.com",
+  "password": "senha123"
 }
 
-### Obter dados do usuário autenticado
+### Login usuário comum 2 - Maria Santos
+# @name loginMaria
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "email": "maria.santos@example.com",
+  "password": "senha456"
+}
+
+### Login usuário admin
+# @name loginAdmin
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### -----------------------------------------------------------------------------
+### 3. TESTES DE ENDPOINTS PÚBLICOS (SEM AUTENTICAÇÃO)
+### -----------------------------------------------------------------------------
+
+### Listar todos os jogos (público)
+GET {{baseUrl}}/games
+
+### Listar listas de jogos (público)
+GET {{baseUrl}}/lists
+
+### Buscar jogos de uma lista específica (público)
+GET {{baseUrl}}/lists/1/games
+
+### -----------------------------------------------------------------------------
+### 4. TESTES DE ENDPOINTS PROTEGIDOS - USUÁRIO JOÃO SILVA
+### -----------------------------------------------------------------------------
+
+### Buscar jogo por ID (requer autenticação)
+GET {{baseUrl}}/games/1
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### Buscar jogos por título (requer autenticação)
+GET {{baseUrl}}/games/title?title=Mass
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### Obter dados do usuário autenticado - João
 GET {{baseUrl}}/users/me
-Authorization: Bearer seu_token_aqui
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### Tentar acessar endpoint protegido sem token (deve falhar)
+GET {{baseUrl}}/games/1
+
+### -----------------------------------------------------------------------------
+### 5. TESTES DE ENDPOINTS PROTEGIDOS - USUÁRIO MARIA SANTOS
+### -----------------------------------------------------------------------------
+
+### Buscar jogo por ID - Maria
+GET {{baseUrl}}/games/2
+Authorization: Bearer {{loginMaria.response.body.token}}
+
+### Buscar jogos por título - Maria
+GET {{baseUrl}}/games/title?title=Red
+Authorization: Bearer {{loginMaria.response.body.token}}
+
+### Obter dados do usuário autenticado - Maria
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{loginMaria.response.body.token}}
+
+### -----------------------------------------------------------------------------
+### 6. TESTES DE ENDPOINTS PROTEGIDOS - USUÁRIO ADMIN
+### -----------------------------------------------------------------------------
+
+### Buscar jogo por ID - Admin
+GET {{baseUrl}}/games/3
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Buscar jogos por título - Admin
+GET {{baseUrl}}/games/title?title=Witcher
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Obter dados do usuário autenticado - Admin
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### -----------------------------------------------------------------------------
+### 7. TESTES DE OPERAÇÕES ADICIONAIS (SE APLICÁVEL)
+### -----------------------------------------------------------------------------
+
+### Buscar usuários por email (requer autenticação)
+GET {{baseUrl}}/users/email?email=joao.silva@example.com
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### -----------------------------------------------------------------------------
+### 8. TESTES DE VALIDAÇÃO E ERROS
+### -----------------------------------------------------------------------------
+
+### Tentar login com credenciais inválidas
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "email": "naoexiste@example.com",
+  "password": "senhaerrada"
+}
+
+### Tentar acessar endpoint inexistente
+GET {{baseUrl}}/endpoint-inexistente
+
+### Tentar buscar jogo com ID inválido (com token)
+GET {{baseUrl}}/games/99999
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### -----------------------------------------------------------------------------
+### 9. TESTES DE AUTORIZAÇÃO ENTRE USUÁRIOS
+### -----------------------------------------------------------------------------
+
+### Verificar que usuários não podem acessar dados de outros
+### (Neste caso, como não há isolamento por usuário, todos acessam os mesmos dados)
+
+### João acessa jogo 1
+GET {{baseUrl}}/games/1
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### Maria acessa o mesmo jogo 1
+GET {{baseUrl}}/games/1
+Authorization: Bearer {{loginMaria.response.body.token}}
+
+### -----------------------------------------------------------------------------
+### 10. TESTES DE PERFORMANCE E FUNCIONALIDADE
+### -----------------------------------------------------------------------------
+
+### Teste de paginação/listagem completa
+GET {{baseUrl}}/games
+
+### Teste de busca com diferentes termos
+GET {{baseUrl}}/games/title?title=The
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### Teste de busca com termo que não existe
+GET {{baseUrl}}/games/title?title=JogoQueNaoExiste
+Authorization: Bearer {{loginJoao.response.body.token}}
+
+### -----------------------------------------------------------------------------
+### RESUMO DOS TESTES
+### -----------------------------------------------------------------------------
+###
+### ✅ Endpoints Públicos:
+###   - POST /users (registro)
+###   - POST /users/login (login)
+###   - GET /games (listar jogos)
+###   - GET /lists (listar listas)
+###   - GET /lists/{id}/games (jogos da lista)
+###
+### ✅ Endpoints Protegidos (requerem Bearer token):
+###   - GET /games/{id} (detalhes do jogo)
+###   - GET /games/title (busca por título)
+###   - GET /users/me (dados do usuário logado)
+###   - GET /users/email (busca usuários por email)
+###
+### ✅ Cenários de Usuários:
+###   - Usuário comum (João Silva)
+###   - Usuário comum (Maria Santos)
+###   - Usuário admin (Admin User)
+###
+### ✅ Validações de Segurança:
+###   - Acesso negado sem token
+###   - Token válido permite acesso
+###   - Dados do usuário correto retornados
+###
+### Para executar os testes:
+### 1. Execute as seções 1 e 2 primeiro para registrar usuários e obter tokens
+### 2. Use os tokens obtidos nas seções subsequentes
+### 3. Execute em ordem sequencial para fluxo completo
+### -----------------------------------------------------------------------------
 
 ### Atualizar apenas password do usuário
 PATCH {{baseUrl}}/users/1
