@@ -1,4 +1,16 @@
-# 🎮 Games List API - Backend
+# 🎮 GamesList - Backend e Frontend
+
+Este repositório foi reestruturado como um monorepo com dois projetos:
+
+- `backend/`: aplicação Java Spring Boot
+- `frontend/`: aplicação React + Tailwind CSS
+
+## Como executar
+
+- Backend: `cd backend && ./mvnw spring-boot:run`
+- Frontend: `cd frontend && npm install && npm run dev`
+
+---
 
 Uma API REST robusta e escalável para gerenciamento de listas de jogos, desenvolvida com **Spring Boot 21**, **Spring Security com JWT**, **PostgreSQL** e boas práticas de arquitetura de software.
 

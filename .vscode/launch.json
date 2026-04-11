@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "DslistApplication",
+            "request": "launch",
+            "mainClass": "com.scrimet.dslist.DslistApplication",
+            "projectName": "gameList"
+        },
+        {
+            "type": "java",
+            "name": "dslist",
+            "request": "launch",
+            "mainClass": "com.seuprojeto.nome.SuaAplicacaoApplication",
+            "projectName": "GameList",
+            "env": {
+                "DB_URL": "jdbc:h2:file:./data/db",
+                "DB_USERNAME": "sa",
+                "DB_PASSWORD": "lucena123"
+            }
+        }
+    ]
+}
